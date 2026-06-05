@@ -382,6 +382,11 @@
       margin-top: 4px;
     }
 
+    .btn-fale-hero {
+      flex-basis: 100%;
+      width: fit-content;
+    }
+
     /* No tablet/desktop os botões ficam lado a lado — gap menor */
     @media (min-width: 768px) {
       .hero-acoes {
@@ -798,6 +803,43 @@
       background: #557648;
     }
 
+    /* Botão flutuante de contato pelo WhatsApp */
+    .btn-flutuante-contato {
+      position: fixed;
+      bottom: 90px;
+      right: 24px;
+      z-index: 90;
+
+      display: inline-grid;
+      place-items: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--cor-destaque);
+      color: var(--cor-branco);
+      text-decoration: none;
+      box-shadow: var(--sombra);
+
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition:
+        opacity var(--transicao),
+        transform var(--transicao),
+        background var(--transicao);
+    }
+
+    .btn-flutuante-contato.visivel {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .btn-flutuante-contato:hover,
+    .btn-flutuante-contato:focus-visible {
+      background: #557648;
+    }
+
     /* ============================================================
        BLOCO 17 — ACESSIBILIDADE
        Respeita preferência do sistema por menos movimento.
@@ -827,6 +869,15 @@
   ============================================================ -->
   <a class="btn-topo" href="#hero" aria-label="Voltar ao topo">
     <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+  </a>
+
+  <a
+    class="btn-flutuante-contato"
+    href="https://wa.me/5562996070796?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20o%20Espa%C3%A7o%20Singular."
+    target="_blank"
+    rel="noopener"
+    aria-label="Fale comigo pelo WhatsApp">
+    <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
   </a>
 
   <!-- ============================================================
@@ -883,6 +934,14 @@
             Agende seu horário
           </a>
           <a class="btn btn-secundario" href="#sobre">Conheça meu trabalho</a>
+          <a
+            class="btn btn-primario btn-fale-hero"
+            href="https://wa.me/5562996070796?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20o%20Espa%C3%A7o%20Singular."
+            target="_blank"
+            rel="noopener">
+            <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+            Fale comigo
+          </a>
         </div>
       </div>
 
@@ -1153,7 +1212,7 @@
 
       </div>
 
-      <p class="rodape-copy">© 2025 Espaço Singular Psicologia. Todos os direitos reservados.</p>
+      <p class="rodape-copy">© 2026 Espaço Singular Psicologia. Todos os direitos reservados.</p>
 
     </div>
   </footer>
@@ -1249,12 +1308,15 @@
        Esconde quando voltar perto do topo.
     ---------------------------------------------------------- */
     const btnTopo = document.querySelector('.btn-topo');
+    const btnContato = document.querySelector('.btn-flutuante-contato');
 
     window.addEventListener('scroll', function() {
       if (window.scrollY > 300) {
         btnTopo.classList.add('visivel');
+        btnContato.classList.add('visivel');
       } else {
         btnTopo.classList.remove('visivel');
+        btnContato.classList.remove('visivel');
       }
     });
   </script>
