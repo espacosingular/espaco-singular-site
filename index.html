@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Espaço Singular Psicologia - atendimento psicológico acolhedor, ético e profissional.">
+  <title>Espaço Singular Psicologia</title>
+
+  <!-- ============================================================
+       FONTES E ÍCONES EXTERNOS
+       Playfair Display = títulos elegantes
+       Lato            = texto do corpo, leve e legível
+       Font Awesome    = ícones
+  ============================================================ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <style>
+    /* ============================================================
+       BLOCO 1 — VARIÁVEIS GLOBAIS (Design Tokens)
+       Mude cores e fontes aqui; o site inteiro atualiza junto.
+    ============================================================ */
+    :root {
+      /* Paleta */
+      --cor-primaria:   #87A878;
+      --cor-secundaria: #F5EFE6;
+      --cor-branco:     #FFFFFF;
+      --cor-texto:      #3D3D3D;
+      --cor-destaque:   #6B8F5E;
+      --cor-borda:      #D6C9B5;
+      --cor-rodape:     #2F3A2E;
+      --cor-sage-claro: #E8F0E4;
+
+      /* Tipografia */
+      --font-titulo: 'Playfair Display', serif;
+      --font-corpo:  'Lato', sans-serif;
+
+      /* Utilitários */
+      --radius:     12px;
+      --sombra:     0 12px 34px rgba(47, 58, 46, 0.12);
+      --transicao:  0.3s ease;
+    }
+
+    /* ============================================================
+       BLOCO 2 — RESET E BASE
+       Remove margens padrão do navegador e define o comportamento
+       base de todos os elementos.
+    ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      background: var(--cor-branco);
+      color: var(--cor-texto);
+      font-family: var(--font-corpo);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      object-fit: cover;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    /* ============================================================
+       BLOCO 3 — TIPOGRAFIA
+       Tamanhos de texto responsivos com clamp():
+       clamp(mínimo, preferido, máximo)
+    ============================================================ */
+    h1, h2, h3 {
+      color: #263125;
+      font-family: var(--font-titulo);
+      font-weight: 600;
+      line-height: 1.15;
+    }
+
+    h1 { font-size: clamp(2.4rem, 7vw, 5rem); }
+    h2 { font-size: clamp(1.9rem, 4vw, 2.8rem); margin-bottom: 18px; }
+    h3 { font-size: 1.4rem; margin-bottom: 10px; }
+
+    p { max-width: 68ch; }
+
+    /* ============================================================
+       BLOCO 4 — LAYOUT BASE
+       Container centralizado e espaçamento das seções.
+    ============================================================ */
+    .container {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+    }
+
+    section {
+      padding: 72px 20px;
+      scroll-margin-top: 88px; /* compensa a nav fixa ao navegar */
+    }
+
+    /* ============================================================
+       BLOCO 5 — COMPONENTES REUTILIZÁVEIS
+       Peças que aparecem em vários lugares do site.
+    ============================================================ */
+
+    /* --- Kicker (texto pequeno acima dos títulos) --- */
+    .section-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 12px;
+      color: var(--cor-destaque);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .section-kicker::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: var(--cor-destaque);
+    }
+
+    /* --- Intro centralizada de seção --- */
+    .section-intro {
+      margin: 0 auto 38px;
+      text-align: center;
+    }
+
+    .section-intro .section-kicker {
+      justify-content: center;
+    }
+
+    /* --- Botões --- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      cursor: pointer;
+      font-family: var(--font-corpo);
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition:
+        background var(--transicao),
+        border-color var(--transicao),
+        color var(--transicao),
+        transform var(--transicao);
+    }
+
+    .btn-primario {
+      background: var(--cor-destaque);
+      color: var(--cor-branco);
+      padding: 14px 28px;
+      box-shadow: 0 12px 24px rgba(107, 143, 94, 0.26);
+    }
+
+    .btn-primario:hover,
+    .btn-primario:focus-visible {
+      background: #557648;
+      transform: translateY(-2px);
+    }
+
+    .btn-secundario {
+      border-color: var(--cor-destaque);
+      background: transparent;
+      color: var(--cor-destaque);
+      padding: 13px 26px;
+    }
+
+    .btn-secundario:hover,
+    .btn-secundario:focus-visible {
+      background: var(--cor-sage-claro);
+      transform: translateY(-2px);
+    }
+
+    .btn-claro {
+      background: var(--cor-branco);
+      color: var(--cor-destaque);
+      padding: 15px 30px;
+    }
+
+    .btn-claro:hover,
+    .btn-claro:focus-visible {
+      background: var(--cor-secundaria);
+      transform: translateY(-2px);
+    }
+
+    /* --- Animação de entrada (fade-in ao rolar) --- */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-in.visivel {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ============================================================
+       BLOCO 6 — NAVEGAÇÃO
+    ============================================================ */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.88);
+      border-bottom: 1px solid rgba(214, 201, 181, 0.6);
+      box-shadow: 0 8px 26px rgba(47, 58, 46, 0.08);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: min(1180px, 100%);
+      min-height: 76px;
+      margin: 0 auto;
+      padding: 0 20px;
+      gap: 20px;
+    }
+
+    /* Logo / marca */
+    .marca {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: #263125;
+    }
+
+    .marca-titulo {
+      font-family: var(--font-titulo);
+      font-size: 1.3rem;
+      font-weight: 600;
+      line-height: 1.1;
+    }
+
+    .marca-sub {
+      color: var(--cor-destaque);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* Botão hamburguer (mobile) */
+    .nav-btn-menu {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--cor-borda);
+      border-radius: 50%;
+      background: var(--cor-branco);
+      color: var(--cor-destaque);
+      cursor: pointer;
+      transition: background var(--transicao);
+    }
+
+    .nav-btn-menu:hover {
+      background: var(--cor-secundaria);
+    }
+
+    /* Menu de links */
+    .nav-menu-wrap {
+      position: absolute;
+      top: 76px;
+      left: 0;
+      right: 0;
+      overflow: hidden;
+      max-height: 0;
+      background: var(--cor-branco);
+      border-bottom: 1px solid transparent;
+      transition: max-height 0.35s ease, border-color 0.35s ease;
+    }
+
+    .nav-menu-wrap.aberto {
+      max-height: 460px;
+      border-color: var(--cor-borda);
+    }
+
+    .nav-lista {
+      display: grid;
+      gap: 4px;
+      list-style: none;
+      padding: 16px 20px 22px;
+    }
+
+    .nav-lista a {
+      display: block;
+      border-radius: 8px;
+      color: var(--cor-texto);
+      font-weight: 700;
+      padding: 11px 8px;
+      text-decoration: none;
+      transition: color var(--transicao), background var(--transicao);
+    }
+
+    .nav-lista a:hover,
+    .nav-lista a:focus-visible {
+      background: var(--cor-secundaria);
+      color: var(--cor-destaque);
+    }
+
+    .nav-cta { margin-top: 8px; }
+
+    /* ============================================================
+       BLOCO 7 — HERO (seção principal / topo)
+    ============================================================ */
+    .hero {
+      padding: 140px 20px 84px;
+      background:
+        linear-gradient(
+          110deg,
+          rgba(245, 239, 230, 0.97) 0%,
+          rgba(245, 239, 230, 0.87) 42%,
+          rgba(135, 168, 120, 0.55) 100%
+        ),
+        var(--cor-secundaria);
+    }
+
+    .hero-inner {
+      display: grid;
+      align-items: center;
+      gap: 42px;
+    }
+
+    .hero-conteudo {
+      display: grid;
+      gap: 20px;
+    }
+
+    .hero-eyebrow {
+      color: var(--cor-destaque);
+      font-size: 0.84rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .hero-frase {
+      color: #43513f;
+      font-family: var(--font-titulo);
+      font-size: clamp(1.2rem, 3vw, 1.9rem);
+      font-style: italic;
+      line-height: 1.4;
+    }
+
+    .hero-texto {
+      color: #4f584b;
+      font-size: 1.05rem;
+    }
+
+    .hero-acoes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 4px;
+    }
+
+    /* Foto do hero */
+    .hero-foto {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(214, 201, 181, 0.8);
+      border-radius: 18px 18px 120px 18px;
+      background: linear-gradient(150deg, var(--cor-sage-claro), var(--cor-secundaria));
+      box-shadow: var(--sombra);
+      min-height: 320px;
+    }
+
+    .hero-foto img {
+      width: 100%;
+      height: 100%;
+      min-height: 320px;
+    }
+
+    /* ============================================================
+       BLOCO 8 — SOBRE MIM
+    ============================================================ */
+    .sobre-grid {
+      display: grid;
+      gap: 38px;
+      align-items: center;
+    }
+
+    .sobre-foto {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--cor-borda);
+      border-radius: 18px;
+      background: linear-gradient(145deg, var(--cor-secundaria), var(--cor-sage-claro));
+      box-shadow: var(--sombra);
+      min-height: 340px;
+    }
+
+    .sobre-foto img {
+      width: 100%;
+      height: 100%;
+      min-height: 340px;
+    }
+
+    .sobre-conteudo {
+      display: grid;
+      gap: 18px;
+    }
+
+    /* Lista de credenciais */
+    .lista-credenciais {
+      display: grid;
+      gap: 12px;
+      margin: 6px 0;
+      list-style: none;
+    }
+
+    .lista-credenciais li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .lista-credenciais i {
+      width: 20px;
+      margin-top: 4px;
+      color: var(--cor-destaque);
+      text-align: center;
+    }
+
+    /* ============================================================
+       BLOCO 9 — PSICOTERAPIA
+    ============================================================ */
+    .psicoterapia {
+      background: var(--cor-secundaria);
+    }
+
+    .psicoterapia-panel {
+      display: grid;
+      align-items: center;
+      gap: 30px;
+    }
+
+    /* Ícone decorativo em círculo */
+    .psicoterapia-icone {
+      display: grid;
+      place-items: center;
+      width: min(240px, 100%);
+      aspect-ratio: 1;
+      margin: 0 auto;
+      border: 1px solid var(--cor-borda);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.62);
+      color: var(--cor-destaque);
+      font-size: clamp(4rem, 14vw, 7rem);
+    }
+
+    .psicoterapia-texto {
+      display: grid;
+      gap: 16px;
+    }
+
+    /* ============================================================
+       BLOCO 10 — ESPECIALIDADES (cards)
+    ============================================================ */
+    .especialidades-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .card-especialidade {
+      border: 1px solid rgba(135, 168, 120, 0.45);
+      border-radius: var(--radius);
+      background: var(--cor-branco);
+      padding: 26px;
+      min-height: 200px;
+      transition:
+        box-shadow var(--transicao),
+        transform var(--transicao),
+        border-color var(--transicao);
+    }
+
+    .card-especialidade:hover {
+      border-color: var(--cor-primaria);
+      box-shadow: var(--sombra);
+      transform: translateY(-4px);
+    }
+
+    .card-icone {
+      display: grid;
+      place-items: center;
+      width: 52px;
+      height: 52px;
+      margin-bottom: 18px;
+      border-radius: 50%;
+      background: var(--cor-sage-claro);
+      color: var(--cor-destaque);
+      font-size: 1.3rem;
+    }
+
+    /* ============================================================
+       BLOCO 11 — COMO FUNCIONA (passos)
+    ============================================================ */
+    .como-funciona {
+      background: linear-gradient(180deg, var(--cor-branco), #FAF7F1);
+    }
+
+    .passos {
+      display: grid;
+      gap: 20px;
+    }
+
+    .passo {
+      position: relative;
+      display: grid;
+      gap: 12px;
+      border-left: 3px solid var(--cor-primaria);
+      padding: 6px 0 6px 24px;
+    }
+
+    .passo-numero {
+      display: inline-grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--cor-destaque);
+      color: var(--cor-branco);
+      font-family: var(--font-titulo);
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    .passo i {
+      color: var(--cor-destaque);
+      font-size: 1.4rem;
+    }
+
+    /* ============================================================
+       BLOCO 12 — DEPOIMENTOS
+    ============================================================ */
+    .depoimentos {
+      background: var(--cor-sage-claro);
+    }
+
+    .depoimentos-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .card-depoimento {
+      display: grid;
+      gap: 16px;
+      border: 1px solid rgba(107, 143, 94, 0.24);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.78);
+      padding: 26px;
+      box-shadow: 0 10px 26px rgba(47, 58, 46, 0.08);
+    }
+
+    .estrelas {
+      color: #6D7F4E;
+      letter-spacing: 0.04em;
+    }
+
+    .depoimento-autor {
+      color: #2f3a2e;
+      font-weight: 700;
+    }
+
+    /* ============================================================
+       BLOCO 13 — AGENDAMENTO (CTA final)
+    ============================================================ */
+    .agendamento {
+      background: var(--cor-destaque);
+      color: var(--cor-branco);
+      text-align: center;
+    }
+
+    .agendamento h2 {
+      color: var(--cor-branco);
+    }
+
+    .agendamento > .container > p {
+      margin: 0 auto 26px;
+      color: rgba(255, 255, 255, 0.94);
+      font-size: 1.08rem;
+    }
+
+    /* Wrapper do iframe — começa escondido */
+    .agenda-wrap {
+      display: none;
+      width: min(980px, 100%);
+      margin: 34px auto 0;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.42);
+      border-radius: 12px;
+      background: var(--cor-branco);
+      box-shadow: 0 16px 40px rgba(47, 58, 46, 0.22);
+    }
+
+    .agenda-wrap.aberto {
+      display: block;
+    }
+
+    .agenda-iframe {
+      display: block;
+      width: 100%;
+      height: 760px;
+      max-height: 82vh;
+      min-height: 620px;
+      border: 0;
+    }
+
+    .agenda-fallback {
+      margin-top: 16px;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.94rem;
+    }
+
+    .agenda-fallback a {
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* ============================================================
+       BLOCO 14 — RODAPÉ
+    ============================================================ */
+    .rodape {
+      background: var(--cor-rodape);
+      color: rgba(255, 255, 255, 0.86);
+      padding: 44px 20px;
+    }
+
+    .rodape-grid {
+      display: grid;
+      gap: 26px;
+      align-items: center;
+    }
+
+    .rodape h2 {
+      color: var(--cor-branco);
+      font-size: 1.6rem;
+      margin-bottom: 8px;
+    }
+
+    .rodape a {
+      text-decoration: none;
+      transition: color var(--transicao);
+    }
+
+    .rodape a:hover,
+    .rodape a:focus-visible {
+      color: var(--cor-secundaria);
+    }
+
+    /* Redes sociais */
+    .redes-sociais {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .redes-sociais a {
+      display: inline-grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 50%;
+      color: var(--cor-branco);
+    }
+
+    .rodape-copy {
+      border-top: 1px solid rgba(255, 255, 255, 0.16);
+      margin-top: 30px;
+      padding-top: 18px;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 0.92rem;
+    }
+
+    /* ============================================================
+       BLOCO 15 — RESPONSIVIDADE
+       Mobile-first: estilos menores já estão acima.
+       Aqui ajustamos para telas maiores.
+    ============================================================ */
+
+    /* Tablet (768px+) */
+    @media (min-width: 768px) {
+      section { padding: 90px 28px; }
+
+      .nav-inner { padding: 0 28px; }
+
+      .hero { padding: 130px 28px 102px; }
+
+      .hero-inner,
+      .sobre-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .psicoterapia-panel {
+        grid-template-columns: 0.9fr 1.1fr;
+      }
+
+      .especialidades-grid,
+      .depoimentos-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .passos {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      /* Nos passos, troca borda lateral por borda superior */
+      .passo {
+        border-left: 0;
+        border-top: 3px solid var(--cor-primaria);
+        padding: 24px 0 0;
+      }
+
+      .rodape-grid {
+        grid-template-columns: 1fr auto;
+      }
+    }
+
+    /* Desktop (1024px+) */
+    @media (min-width: 1024px) {
+      /* Esconde o botão hamburguer */
+      .nav-btn-menu { display: none; }
+
+      /* Menu vira linha horizontal */
+      .nav-menu-wrap {
+        position: static;
+        max-height: none;
+        overflow: visible;
+        background: transparent;
+        border: 0;
+      }
+
+      .nav-lista {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 0;
+      }
+
+      .nav-lista a { padding: 8px 4px; }
+
+      .nav-cta { margin-top: 0; }
+
+      .hero-foto { min-height: 500px; }
+      .hero-foto img { min-height: 500px; }
+
+      .especialidades-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* ============================================================
+       BLOCO 16 — ACESSIBILIDADE
+       Respeita preferência do sistema por menos movimento.
+    ============================================================ */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .fade-in {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+       NAVEGAÇÃO PRINCIPAL
+  ============================================================ -->
+  <nav class="nav" aria-label="Navegação principal">
+    <div class="nav-inner">
+
+      <a class="marca" href="#hero" aria-label="Ir para o início">
+        <span class="marca-titulo">Espaço Singular Psicologia</span>
+        <span class="marca-sub">[NOME COMPLETO] · CRP [NÚMERO]</span>
+      </a>
+
+      <!-- Botão hamburguer — só aparece no mobile -->
+      <button
+        class="nav-btn-menu"
+        type="button"
+        aria-label="Abrir menu"
+        aria-expanded="false"
+        aria-controls="menu-principal">
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+      </button>
+
+      <div class="nav-menu-wrap" id="menu-principal">
+        <ul class="nav-lista">
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#psicoterapia">Psicoterapia</a></li>
+          <li><a href="#especialidades">Especialidades</a></li>
+          <li><a href="#como-funciona">Atendimento</a></li>
+          <li class="nav-cta">
+            <a class="btn btn-primario js-abrir-agenda" href="#agendamento">Agendar</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       HERO — Seção principal / topo
+  ============================================================ -->
+  <header class="hero" id="hero">
+    <div class="container hero-inner">
+
+      <div class="hero-conteudo fade-in">
+        <p class="hero-eyebrow">Atendimento psicológico presencial e online</p>
+        <h1>Espaço Singular Psicologia</h1>
+        <p class="hero-frase">Um espaço só seu para se reconhecer, se cuidar e se transformar.</p>
+        <p class="hero-texto">Com [NOME COMPLETO], psicóloga CRP [NÚMERO], especialista em [ABORDAGEM TERAPÊUTICA].</p>
+
+        <div class="hero-acoes">
+          <a class="btn btn-primario js-abrir-agenda" href="#agendamento">
+            <i class="fa-regular fa-calendar-check" aria-hidden="true"></i>
+            Agende seu horário
+          </a>
+          <a class="btn btn-secundario" href="#sobre">Conheça meu trabalho</a>
+        </div>
+      </div>
+
+      <div class="hero-foto fade-in">
+        <!--
+          Substitua FOTO_HERO_ID pelo ID do arquivo no Google Drive.
+          No Drive: clique direito na foto → Compartilhar → Copiar link → pegue o ID no meio da URL.
+          Deixe a permissão como "Qualquer pessoa com o link".
+        -->
+        <img
+          src="https://drive.google.com/uc?export=view&id=FOTO_HERO_ID"
+          alt="Foto da psicóloga [NOME COMPLETO]"
+          onerror="this.style.display='none'">
+      </div>
+
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============================================================
+         SOBRE MIM
+    ============================================================ -->
+    <section id="sobre" class="sobre">
+      <div class="container sobre-grid">
+
+        <div class="sobre-foto fade-in">
+          <img
+            src="https://drive.google.com/uc?export=view&id=FOTO_SOBRE_ID"
+            alt="Retrato profissional de [NOME COMPLETO]"
+            onerror="this.style.display='none'">
+        </div>
+
+        <div class="sobre-conteudo fade-in">
+          <span class="section-kicker">Sobre mim</span>
+          <h2>Cuidado psicológico com escuta, ética e presença.</h2>
+          <p>Sou [NOME COMPLETO], psicóloga dedicada a construir um espaço de acolhimento para que você possa olhar para sua história com mais gentileza, clareza e autonomia.</p>
+          <p>Meu trabalho parte de uma escuta sensível e profissional, respeitando o tempo, as singularidades e os caminhos possíveis de cada pessoa.</p>
+
+          <ul class="lista-credenciais">
+            <li>
+              <i class="fa-solid fa-id-card" aria-hidden="true"></i>
+              <span>Psicóloga — CRP [NÚMERO]</span>
+            </li>
+            <li>
+              <i class="fa-solid fa-seedling" aria-hidden="true"></i>
+              <span>Especialidade: [ABORDAGEM TERAPÊUTICA]</span>
+            </li>
+            <li>
+              <i class="fa-solid fa-display" aria-hidden="true"></i>
+              <span>Atendimento presencial e online</span>
+            </li>
+          </ul>
+
+          <a class="btn btn-secundario" href="#psicoterapia">Saiba mais sobre meu trabalho</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PSICOTERAPIA — O que é
+    ============================================================ -->
+    <section id="psicoterapia" class="psicoterapia">
+      <div class="container psicoterapia-panel">
+
+        <div class="psicoterapia-icone fade-in" aria-hidden="true">
+          <i class="fa-regular fa-heart"></i>
+        </div>
+
+        <div class="psicoterapia-texto fade-in">
+          <span class="section-kicker">Psicoterapia</span>
+          <h2>O que é psicoterapia?</h2>
+          <p>A psicoterapia é um processo de cuidado emocional conduzido por uma profissional da psicologia. É um espaço seguro para falar sobre sentimentos, relações, escolhas, dores e padrões que talvez estejam limitando sua vida.</p>
+          <p>Ao longo dos encontros, você pode desenvolver mais consciência sobre si, aprender novas formas de lidar com desafios e fortalecer recursos internos para viver com mais presença e sentido.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         ESPECIALIDADES — Cards de áreas de cuidado
+    ============================================================ -->
+    <section id="especialidades" class="especialidades">
+      <div class="container">
+
+        <div class="section-intro fade-in">
+          <span class="section-kicker">Como posso te ajudar</span>
+          <h2>Áreas de cuidado</h2>
+          <p>Alguns temas que podem ser trabalhados no processo terapêutico, sempre com atenção à sua história e ao seu momento de vida.</p>
+        </div>
+
+        <div class="especialidades-grid">
+
+          <article class="card-especialidade fade-in">
+            <div class="card-icone"><i class="fa-solid fa-cloud-sun" aria-hidden="true"></i></div>
+            <h3>Ansiedade</h3>
+            <p>Apoio para compreender sintomas, pensamentos recorrentes e formas mais saudáveis de atravessar momentos de tensão.</p>
+          </article>
+
+          <article class="card-especialidade fade-in">
+            <div class="card-icone"><i class="fa-solid fa-hand-holding-heart" aria-hidden="true"></i></div>
+            <h3>Depressão</h3>
+            <p>Escuta cuidadosa para lidar com tristeza persistente, desânimo, perda de interesse e sofrimento emocional.</p>
+          </article>
+
+          <article class="card-especialidade fade-in">
+            <div class="card-icone"><i class="fa-solid fa-spa" aria-hidden="true"></i></div>
+            <h3>Autoestima</h3>
+            <p>Um processo para reconhecer sua história, fortalecer sua identidade e desenvolver uma relação mais gentil consigo.</p>
+          </article>
+
+          <article class="card-especialidade fade-in">
+            <div class="card-icone"><i class="fa-solid fa-comments" aria-hidden="true"></i></div>
+            <h3>Relacionamentos</h3>
+            <p>Reflexão sobre vínculos, limites, comunicação, padrões afetivos e formas de se relacionar com mais clareza.</p>
+          </article>
+
+          <article class="card-especialidade fade-in">
+            <div class="card-icone"><i class="fa-solid fa-compass" aria-hidden="true"></i></div>
+            <h3>Desenvolvimento Pessoal</h3>
+            <p>Acompanhamento para decisões, mudanças de vida, autoconhecimento e construção de caminhos mais coerentes.</p>
+          </article>
+
+          <article class="card-especialidade fade-in">
+            <div class="card-icone"><i class="fa-solid fa-ribbon" aria-hidden="true"></i></div>
+            <h3>Trauma e Luto</h3>
+            <p>Cuidado para atravessar perdas, rupturas e experiências difíceis com respeito ao tempo de elaboração de cada pessoa.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         COMO FUNCIONA — Passos do atendimento
+    ============================================================ -->
+    <section id="como-funciona" class="como-funciona">
+      <div class="container">
+
+        <div class="section-intro fade-in">
+          <span class="section-kicker">Atendimento</span>
+          <h2>Como funciona</h2>
+          <p>O início do acompanhamento é simples e pensado para que você se sinta orientada desde o primeiro contato.</p>
+        </div>
+
+        <div class="passos">
+
+          <article class="passo fade-in">
+            <span class="passo-numero">1</span>
+            <i class="fa-regular fa-calendar-check" aria-hidden="true"></i>
+            <h3>Primeiro contato</h3>
+            <p>Você acessa a agenda online, escolhe o melhor horário disponível e inicia seu primeiro contato.</p>
+          </article>
+
+          <article class="passo fade-in">
+            <span class="passo-numero">2</span>
+            <i class="fa-regular fa-comments" aria-hidden="true"></i>
+            <h3>Sessão inicial</h3>
+            <p>No primeiro encontro, conversamos sobre sua busca, suas necessidades e os objetivos do processo.</p>
+          </article>
+
+          <article class="passo fade-in">
+            <span class="passo-numero">3</span>
+            <i class="fa-solid fa-seedling" aria-hidden="true"></i>
+            <h3>Acompanhamento</h3>
+            <p>As sessões seguem com regularidade, cuidado e construção conjunta ao longo do seu caminho terapêutico.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         DEPOIMENTOS
+         ⚠️ Substitua pelos textos reais autorizados pelos pacientes.
+    ============================================================ -->
+    <section id="depoimentos" class="depoimentos">
+      <div class="container">
+
+        <div class="section-intro fade-in">
+          <span class="section-kicker">Depoimentos</span>
+          <h2>Relatos de cuidado</h2>
+          <p>Substitua pelos depoimentos autorizados, preservando o sigilo e a ética profissional.</p>
+        </div>
+
+        <div class="depoimentos-grid">
+
+          <article class="card-depoimento fade-in">
+            <div class="estrelas" aria-label="Cinco estrelas">★★★★★</div>
+            <p>"Encontrei um espaço de escuta respeitoso, onde pude falar com calma e entender melhor meus sentimentos."</p>
+            <span class="depoimento-autor">A.</span>
+          </article>
+
+          <article class="card-depoimento fade-in">
+            <div class="estrelas" aria-label="Cinco estrelas">★★★★★</div>
+            <p>"O processo me ajudou a reconhecer padrões e construir escolhas mais alinhadas com o que eu precisava."</p>
+            <span class="depoimento-autor">M.</span>
+          </article>
+
+          <article class="card-depoimento fade-in">
+            <div class="estrelas" aria-label="Cinco estrelas">★★★★★</div>
+            <p>"Senti acolhimento desde o primeiro contato. As sessões têm sido importantes para o meu autocuidado."</p>
+            <span class="depoimento-autor">R.</span>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         AGENDAMENTO — CTA final
+    ============================================================ -->
+    <section id="agendamento" class="agendamento">
+      <div class="container fade-in">
+
+        <h2>Pronta para cuidar de você?</h2>
+        <p>Abra a agenda online para escolher um horário disponível e iniciar seu atendimento.</p>
+
+        <a class="btn btn-claro js-abrir-agenda" href="#agenda-online">
+          <i class="fa-regular fa-calendar-check" aria-hidden="true"></i>
+          Agende seu horário
+        </a>
+
+        <!-- Agenda incorporada — começa escondida, aparece ao clicar no botão acima -->
+        <div class="agenda-wrap" id="agenda-online" aria-live="polite">
+          <!--
+            data-src: URL carregada apenas quando o usuário clicar em "Agendar".
+            Isso evita carregar o iframe à toa (boa prática de performance).
+          -->
+          <iframe
+            class="agenda-iframe"
+            title="Agenda online Espaço Singular Psicologia"
+            data-src="https://espacosingularpsicologia.tuaagenda.app"
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+
+        <p class="agenda-fallback">
+          Se a agenda não carregar,
+          <a href="https://espacosingularpsicologia.tuaagenda.app" target="_blank" rel="noopener">acesse por este link</a>.
+        </p>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       RODAPÉ
+  ============================================================ -->
+  <footer class="rodape">
+    <div class="container">
+
+      <div class="rodape-grid">
+
+        <div>
+          <h2>Espaço Singular Psicologia</h2>
+          <p>[NOME COMPLETO] — Psicóloga CRP [NÚMERO]</p>
+          <p><a href="mailto:[EMAIL DE CONTATO]">[EMAIL DE CONTATO]</a></p>
+        </div>
+
+        <div>
+          <p>Contato e redes sociais</p>
+          <div class="redes-sociais">
+            <a
+              href="https://www.instagram.com/[PERFILINSTAGRAM]"
+              target="_blank"
+              rel="noopener"
+              aria-label="Instagram">
+              <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+            </a>
+            <a class="js-abrir-agenda" href="#agendamento" aria-label="Agenda online">
+              <i class="fa-regular fa-calendar-check" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="rodape-copy">© 2025 Espaço Singular Psicologia. Todos os direitos reservados.</p>
+
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       JAVASCRIPT
+       Dividido em funções pequenas e comentadas.
+  ============================================================ -->
+  <script>
+    /* ----------------------------------------------------------
+       1. MENU MOBILE
+       Controla abrir e fechar o menu no hamburguer.
+    ---------------------------------------------------------- */
+    const btnMenu   = document.querySelector('.nav-btn-menu');
+    const menuWrap  = document.querySelector('.nav-menu-wrap');
+    const iconeMenu = btnMenu.querySelector('i');
+
+    function fecharMenu() {
+      menuWrap.classList.remove('aberto');
+      btnMenu.setAttribute('aria-expanded', 'false');
+      btnMenu.setAttribute('aria-label', 'Abrir menu');
+      iconeMenu.className = 'fa-solid fa-bars';
+    }
+
+    function alternarMenu() {
+      const estaAberto = menuWrap.classList.toggle('aberto');
+      btnMenu.setAttribute('aria-expanded', String(estaAberto));
+      btnMenu.setAttribute('aria-label', estaAberto ? 'Fechar menu' : 'Abrir menu');
+      iconeMenu.className = estaAberto ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+    }
+
+    btnMenu.addEventListener('click', alternarMenu);
+
+    /* ----------------------------------------------------------
+       2. SCROLL SUAVE
+       Leva o usuário até a seção certa ao clicar em links internos.
+       (Complementa o scroll-behavior: smooth do CSS, que às vezes
+        não funciona por causa da nav fixa.)
+    ---------------------------------------------------------- */
+    function rolarPara(elemento) {
+      if (!elemento) return;
+      elemento.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    /* ----------------------------------------------------------
+       3. AGENDA INLINE
+       Carrega o iframe apenas quando o usuário clicar em "Agendar".
+       Assim o site não fica mais lento por carregar algo que talvez
+       o visitante nem vá usar.
+    ---------------------------------------------------------- */
+    const agendaWrap   = document.querySelector('.agenda-wrap');
+    const agendaIframe = document.querySelector('.agenda-iframe');
+
+    function abrirAgenda() {
+      // Carrega o src do iframe só na primeira vez
+      if (!agendaIframe.getAttribute('src')) {
+        agendaIframe.setAttribute('src', agendaIframe.dataset.src);
+      }
+
+      agendaWrap.classList.add('aberto');
+
+      // Aguarda um momento para a agenda aparecer antes de rolar
+      setTimeout(() => rolarPara(agendaWrap), 120);
+    }
+
+    // Todos os botões com .js-abrir-agenda abrem a agenda
+    document.querySelectorAll('.js-abrir-agenda').forEach(function(botao) {
+      botao.addEventListener('click', function(evento) {
+        evento.preventDefault();
+        fecharMenu();
+        abrirAgenda();
+      });
+    });
+
+    /* ----------------------------------------------------------
+       4. LINKS INTERNOS (âncoras)
+       Para links que NÃO são de agenda, só rola para a seção.
+    ---------------------------------------------------------- */
+    document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+      // Pula os botões de agenda (já tratados acima)
+      if (link.classList.contains('js-abrir-agenda')) return;
+
+      link.addEventListener('click', function(evento) {
+        const idAlvo = link.getAttribute('href').slice(1); // remove o #
+        const alvo   = document.getElementById(idAlvo);
+
+        if (!alvo) return;
+
+        evento.preventDefault();
+        fecharMenu();
+        rolarPara(alvo);
+      });
+    });
+
+    /* ----------------------------------------------------------
+       5. ANIMAÇÕES AO ROLAR (Intersection Observer)
+       Adiciona a classe .visivel nos elementos .fade-in quando
+       eles entram na tela — sem biblioteca, só JS nativo.
+    ---------------------------------------------------------- */
+    const elementosFade = document.querySelectorAll('.fade-in');
+
+    if ('IntersectionObserver' in window) {
+      const observador = new IntersectionObserver(
+        function(entradas) {
+          entradas.forEach(function(entrada) {
+            if (entrada.isIntersecting) {
+              entrada.target.classList.add('visivel');
+              observador.unobserve(entrada.target); // para de observar após animar
+            }
+          });
+        },
+        { threshold: 0.14 }
+      );
+
+      elementosFade.forEach(function(el) { observador.observe(el); });
+    } else {
+      // Fallback para navegadores muito antigos: mostra tudo de uma vez
+      elementosFade.forEach(function(el) { el.classList.add('visivel'); });
+    }
+  </script>
+
+  <!--
+    ================================================================
+    GUIA RÁPIDO DE PERSONALIZAÇÃO
+    ================================================================
+
+    1. DADOS PESSOAIS
+       Procure e substitua no HTML:
+       [NOME COMPLETO]         → ex: Dra. Ana Paula Silva
+       [NÚMERO]                → ex: 06/123456
+       [ABORDAGEM TERAPÊUTICA] → ex: Terapia Cognitivo-Comportamental
+       [EMAIL DE CONTATO]      → ex: contato@espacosingular.com.br
+       [PERFILINSTAGRAM]       → ex: espacosingularpsicologia
+
+    2. IMAGENS (Google Drive)
+       a) Faça upload da foto no Google Drive
+       b) Clique direito → Compartilhar → "Qualquer pessoa com o link"
+       c) Copie o ID da URL (a parte entre /d/ e /view)
+          Exemplo de URL: https://drive.google.com/file/d/ABC123xyz/view
+          O ID seria:     ABC123xyz
+       d) Substitua no código:
+          FOTO_HERO_ID  → foto principal (hero)
+          FOTO_SOBRE_ID → foto da seção "Sobre mim"
+
+    3. AGENDA (Tua Agenda)
+       Se precisar trocar a URL no futuro, procure por:
+       data-src="https://espacosingularpsicologia.tuaagenda.app"
+       e atualize o link do fallback logo abaixo também.
+
+    4. SUBIR PARA O GITHUB
+       a) Crie um repositório público no GitHub
+       b) Suba este arquivo como index.html na raiz
+       c) Vá em Settings → Pages → Source: main branch / root
+       d) Seu site vai aparecer em: https://[seu-usuario].github.io/[repositorio]
+       e) Para usar domínio próprio: Settings → Pages → Custom domain
+
+    ================================================================
+  -->
+
+</body>
+</html>
