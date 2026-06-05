@@ -378,8 +378,15 @@
     .hero-acoes {
       display: flex;
       flex-wrap: wrap;
-      gap: 14px;
+      gap: 2.4rem; /* mobile: espaço generoso entre os botões empilhados */
       margin-top: 4px;
+    }
+
+    /* No tablet/desktop os botões ficam lado a lado — gap menor */
+    @media (min-width: 768px) {
+      .hero-acoes {
+        gap: 14px;
+      }
     }
 
     /* Foto do hero */
@@ -868,7 +875,7 @@
         <p class="hero-eyebrow">Atendimento psicológico presencial e online</p>
         <h1>Espaço Singular Psicologia</h1>
         <p class="hero-frase">Um espaço só seu para se reconhecer, se cuidar e se transformar.</p>
-        <p class="hero-texto">Com Flaildes Soares, psicóloga CRP 19/872, especialista em Terapia Cognitivo-Comportamental (TCC).</p><br><br>
+        <p class="hero-texto">Com [NOME COMPLETO], psicóloga CRP [NÚMERO], especialista em [ABORDAGEM TERAPÊUTICA].</p>
 
         <div class="hero-acoes">
           <a class="btn btn-primario" href="https://espacosingularpsicologia.tuaagenda.app" target="_blank" rel="noopener">
@@ -886,8 +893,8 @@
           Deixe a permissão como "Qualquer pessoa com o link".
         -->
         <img
-          src="img/flaildes.jpeg"
-          alt="Foto da psicóloga Flaildes Soares"
+          src="https://drive.google.com/uc?export=view&id=FOTO_HERO_ID"
+          alt="Foto da psicóloga [NOME COMPLETO]"
           onerror="this.style.display='none'">
       </div>
 
