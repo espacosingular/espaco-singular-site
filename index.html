@@ -609,41 +609,11 @@
       font-size: 1.08rem;
     }
 
-    /* Wrapper do iframe — começa escondido */
-    .agenda-wrap {
-      display: none;
-      width: min(980px, 100%);
-      margin: 34px auto 0;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.42);
-      border-radius: 12px;
-      background: var(--cor-branco);
-      box-shadow: 0 16px 40px rgba(47, 58, 46, 0.22);
-    }
-
-    .agenda-wrap.aberto {
-      display: block;
-    }
-
-    .agenda-iframe {
-      display: block;
-      width: 100%;
-      height: 760px;
-      max-height: 82vh;
-      min-height: 620px;
-      border: 0;
-    }
-
-    .agenda-fallback {
+    /* Texto de apoio abaixo do botão de agendamento */
+    .agendamento-apoio {
       margin-top: 16px;
-      color: rgba(255, 255, 255, 0.9);
+      color: rgba(255, 255, 255, 0.82);
       font-size: 0.94rem;
-    }
-
-    .agenda-fallback a {
-      font-weight: 700;
-      text-decoration: underline;
-      text-underline-offset: 3px;
     }
 
     /* ============================================================
@@ -829,7 +799,7 @@
           <li><a href="#especialidades">Especialidades</a></li>
           <li><a href="#como-funciona">Atendimento</a></li>
           <li class="nav-cta">
-            <a class="btn btn-primario js-abrir-agenda" href="#agendamento">Agendar</a>
+            <a class="btn btn-primario" href="https://espacosingularpsicologia.tuaagenda.app" target="_blank" rel="noopener">Agendar</a>
           </li>
         </ul>
       </div>
@@ -850,7 +820,7 @@
         <p class="hero-texto">Com [NOME COMPLETO], psicóloga CRP [NÚMERO], especialista em [ABORDAGEM TERAPÊUTICA].</p>
 
         <div class="hero-acoes">
-          <a class="btn btn-primario js-abrir-agenda" href="#agendamento">
+          <a class="btn btn-primario" href="https://espacosingularpsicologia.tuaagenda.app" target="_blank" rel="noopener">
             <i class="fa-regular fa-calendar-check" aria-hidden="true"></i>
             Agende seu horário
           </a>
@@ -1067,36 +1037,25 @@
 
     <!-- ============================================================
          AGENDAMENTO — CTA final
+         O botão abre o Tua Agenda em nova aba.
+         Isso evita o erro de login do Google dentro de iframes.
     ============================================================ -->
     <section id="agendamento" class="agendamento">
       <div class="container fade-in">
 
         <h2>Pronta para cuidar de você?</h2>
-        <p>Abra a agenda online para escolher um horário disponível e iniciar seu atendimento.</p>
+        <p>Clique abaixo para acessar a agenda online e escolher o melhor horário para você.</p>
 
-        <a class="btn btn-claro js-abrir-agenda" href="#agenda-online">
+        <a
+          class="btn btn-claro"
+          href="https://espacosingularpsicologia.tuaagenda.app"
+          target="_blank"
+          rel="noopener">
           <i class="fa-regular fa-calendar-check" aria-hidden="true"></i>
           Agende seu horário
         </a>
 
-        <!-- Agenda incorporada — começa escondida, aparece ao clicar no botão acima -->
-        <div class="agenda-wrap" id="agenda-online" aria-live="polite">
-          <!--
-            data-src: URL carregada apenas quando o usuário clicar em "Agendar".
-            Isso evita carregar o iframe à toa (boa prática de performance).
-          -->
-          <iframe
-            class="agenda-iframe"
-            title="Agenda online Espaço Singular Psicologia"
-            data-src="https://espacosingularpsicologia.tuaagenda.app"
-            loading="lazy"
-            referrerpolicy="strict-origin-when-cross-origin"></iframe>
-        </div>
-
-        <p class="agenda-fallback">
-          Se a agenda não carregar,
-          <a href="https://espacosingularpsicologia.tuaagenda.app" target="_blank" rel="noopener">acesse por este link</a>.
-        </p>
+        <p class="agendamento-apoio">A agenda abrirá em uma nova aba.</p>
 
       </div>
     </section>
@@ -1127,7 +1086,7 @@
               aria-label="Instagram">
               <i class="fa-brands fa-instagram" aria-hidden="true"></i>
             </a>
-            <a class="js-abrir-agenda" href="#agendamento" aria-label="Agenda online">
+            <a href="https://espacosingularpsicologia.tuaagenda.app" target="_blank" rel="noopener" aria-label="Agenda online">
               <i class="fa-regular fa-calendar-check" aria-hidden="true"></i>
             </a>
           </div>
@@ -1181,37 +1140,7 @@
     }
 
     /* ----------------------------------------------------------
-       3. AGENDA INLINE
-       Carrega o iframe apenas quando o usuário clicar em "Agendar".
-       Assim o site não fica mais lento por carregar algo que talvez
-       o visitante nem vá usar.
-    ---------------------------------------------------------- */
-    const agendaWrap   = document.querySelector('.agenda-wrap');
-    const agendaIframe = document.querySelector('.agenda-iframe');
-
-    function abrirAgenda() {
-      // Carrega o src do iframe só na primeira vez
-      if (!agendaIframe.getAttribute('src')) {
-        agendaIframe.setAttribute('src', agendaIframe.dataset.src);
-      }
-
-      agendaWrap.classList.add('aberto');
-
-      // Aguarda um momento para a agenda aparecer antes de rolar
-      setTimeout(() => rolarPara(agendaWrap), 120);
-    }
-
-    // Todos os botões com .js-abrir-agenda abrem a agenda
-    document.querySelectorAll('.js-abrir-agenda').forEach(function(botao) {
-      botao.addEventListener('click', function(evento) {
-        evento.preventDefault();
-        fecharMenu();
-        abrirAgenda();
-      });
-    });
-
-    /* ----------------------------------------------------------
-       4. LINKS INTERNOS (âncoras)
+       3. LINKS INTERNOS (âncoras)
        Para links que NÃO são de agenda, só rola para a seção.
     ---------------------------------------------------------- */
     document.querySelectorAll('a[href^="#"]').forEach(function(link) {
@@ -1231,7 +1160,7 @@
     });
 
     /* ----------------------------------------------------------
-       5. ANIMAÇÕES AO ROLAR (Intersection Observer)
+       4. ANIMAÇÕES AO ROLAR (Intersection Observer)
        Adiciona a classe .visivel nos elementos .fade-in quando
        eles entram na tela — sem biblioteca, só JS nativo.
     ---------------------------------------------------------- */
@@ -1281,9 +1210,10 @@
           FOTO_SOBRE_ID → foto da seção "Sobre mim"
 
     3. AGENDA (Tua Agenda)
+       O botão "Agendar" abre o Tua Agenda em nova aba.
        Se precisar trocar a URL no futuro, procure por:
-       data-src="https://espacosingularpsicologia.tuaagenda.app"
-       e atualize o link do fallback logo abaixo também.
+       href="https://espacosingularpsicologia.tuaagenda.app"
+       (aparece em 3 lugares: nav, hero e seção de agendamento)
 
     4. SUBIR PARA O GITHUB
        a) Crie um repositório público no GitHub
