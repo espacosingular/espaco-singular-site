@@ -750,7 +750,49 @@
     }
 
     /* ============================================================
-       BLOCO 16 — ACESSIBILIDADE
+       BLOCO 16 — BOTÃO VOLTAR AO TOPO
+       Fica fixo no canto inferior direito.
+       Aparece só depois que o usuário rolar 300px para baixo.
+    ============================================================ */
+    .btn-topo {
+      position: fixed;
+      bottom: 28px;
+      right: 24px;
+      z-index: 90;
+
+      display: inline-grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+
+      background: var(--cor-destaque);
+      color: var(--cor-branco);
+      border-radius: 50%;
+      box-shadow: 0 6px 20px rgba(47, 58, 46, 0.28);
+      text-decoration: none;
+
+      /* Começa invisível e deslocado para baixo */
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none; /* não clicável quando invisível */
+
+      transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease;
+    }
+
+    /* Classe adicionada pelo JS quando o usuário rola para baixo */
+    .btn-topo.visivel {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .btn-topo:hover,
+    .btn-topo:focus-visible {
+      background: #557648;
+    }
+
+    /* ============================================================
+       BLOCO 17 — ACESSIBILIDADE
        Respeita preferência do sistema por menos movimento.
     ============================================================ */
     @media (prefers-reduced-motion: reduce) {
@@ -770,6 +812,15 @@
 </head>
 
 <body>
+
+  <!-- ============================================================
+       BOTÃO VOLTAR AO TOPO
+       Fica fora do fluxo da página (position: fixed no CSS).
+       O JS controla quando ele aparece.
+  ============================================================ -->
+  <a class="btn-topo" href="#hero" aria-label="Voltar ao topo">
+    <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+  </a>
 
   <!-- ============================================================
        NAVEGAÇÃO PRINCIPAL
@@ -1184,6 +1235,20 @@
       // Fallback para navegadores muito antigos: mostra tudo de uma vez
       elementosFade.forEach(function(el) { el.classList.add('visivel'); });
     }
+    /* ----------------------------------------------------------
+       5. BOTÃO VOLTAR AO TOPO
+       Mostra o botão quando o usuário passa de 300px de scroll.
+       Esconde quando voltar perto do topo.
+    ---------------------------------------------------------- */
+    const btnTopo = document.querySelector('.btn-topo');
+
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 300) {
+        btnTopo.classList.add('visivel');
+      } else {
+        btnTopo.classList.remove('visivel');
+      }
+    });
   </script>
 
   <!--
