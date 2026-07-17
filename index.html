@@ -326,8 +326,6 @@
       color: var(--cor-destaque);
     }
 
-    .nav-cta { margin-top: 8px; }
-
     /* ============================================================
        BLOCO 7 — HERO (seção principal / topo)
     ============================================================ */
@@ -606,26 +604,26 @@
     }
 
     /* ============================================================
-       BLOCO 13 — AGENDAMENTO (CTA final)
+       BLOCO 13 — CONTATO (CTA final)
     ============================================================ */
-    .agendamento {
+    .contato-final {
       background: var(--cor-destaque);
       color: var(--cor-branco);
       text-align: center;
     }
 
-    .agendamento h2 {
+    .contato-final h2 {
       color: var(--cor-branco);
     }
 
-    .agendamento > .container > p {
+    .contato-final > .container > p {
       margin: 0 auto 26px;
       color: rgba(255, 255, 255, 0.94);
       font-size: 1.08rem;
     }
 
-    /* Texto de apoio abaixo do botão de agendamento */
-    .agendamento-apoio {
+    /* Texto de apoio abaixo do botão de contato */
+    .contato-final-apoio {
       margin-top: 16px;
       color: rgba(255, 255, 255, 0.82);
       font-size: 0.94rem;
@@ -753,8 +751,6 @@
       }
 
       .nav-lista a { padding: 8px 4px; }
-
-      .nav-cta { margin-top: 0; }
 
       .hero-foto { min-height: 500px; }
       .hero-foto img { min-height: 500px; }
@@ -910,9 +906,6 @@
           <li><a href="#psicoterapia">Tcc</a></li>
           <li><a href="#especialidades">Especialidades</a></li>
           <li><a href="#como-funciona">Atendimento</a></li>
-          <li class="nav-cta">
-            <a class="btn btn-primario" href="https://espacosingularpsicologia.tuaagenda.app" target="_blank" rel="noopener">Agendar</a>
-          </li>
         </ul>
       </div>
 
@@ -932,10 +925,6 @@
         <p class="hero-texto">Com Flaildes Soares, psicóloga CRP 19/872, especialista em Terapia Cognitivo-Comportamental.</p>
 
         <div class="hero-acoes">
-          <a class="btn btn-primario" href="https://espacosingularpsicologia.tuaagenda.app" target="_blank" rel="noopener">
-            <i class="fa-regular fa-calendar-check" aria-hidden="true"></i>
-            Agende seu horário
-          </a>
           <a class="btn btn-secundario" href="#sobre">Conheça meu trabalho</a>
           <a
             class="btn btn-primario btn-fale-hero"
@@ -1098,7 +1087,7 @@
             <span class="passo-numero">1</span>
             <i class="fa-regular fa-calendar-check" aria-hidden="true"></i>
             <h3>Primeiro contato</h3>
-            <p>Você acessa a agenda online, escolhe o melhor horário disponível e inicia seu primeiro contato.</p>
+            <p>Você fala comigo pelo WhatsApp para tirar dúvidas e combinar o melhor horário para o primeiro contato.</p>
           </article>
 
           <article class="passo fade-in">
@@ -1157,26 +1146,24 @@
     </section>
 
     <!-- ============================================================
-         AGENDAMENTO — CTA final
-         O botão abre o Tua Agenda em nova aba.
-         Isso evita o erro de login do Google dentro de iframes.
+         CONTATO — CTA final
     ============================================================ -->
-    <section id="agendamento" class="agendamento">
+    <section id="contato" class="contato-final">
       <div class="container fade-in">
 
         <h2>Pronta para cuidar de você?</h2>
-        <p>Clique abaixo para acessar a agenda online e escolher o melhor horário para você.</p>
+        <p>Fale comigo pelo WhatsApp para tirar dúvidas e combinar o melhor horário para você.</p>
 
         <a
           class="btn btn-claro"
-          href="https://espacosingularpsicologia.tuaagenda.app"
+          href="https://wa.me/5562996070796?text=Ol%C3%A1!%20Gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20agendamento%20de%20consultas%20no%20Espa%C3%A7o%20Singular."
           target="_blank"
           rel="noopener">
-          <i class="fa-regular fa-calendar-check" aria-hidden="true"></i>
-          Agende seu horário
+          <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+          Fale comigo
         </a>
 
-        <p class="agendamento-apoio">A agenda abrirá em uma nova aba.</p>
+        <p class="contato-final-apoio">O atendimento pelo WhatsApp abrirá em uma nova aba.</p>
 
       </div>
     </section>
@@ -1207,8 +1194,12 @@
               aria-label="Instagram">
               <i class="fa-brands fa-instagram" aria-hidden="true"></i>
             </a>
-            <a href="https://espacosingularpsicologia.tuaagenda.app" target="_blank" rel="noopener" aria-label="Agenda online">
-              <i class="fa-regular fa-calendar-check" aria-hidden="true"></i>
+            <a
+              href="https://wa.me/5562996070796?text=Ol%C3%A1!%20Gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20agendamento%20de%20consultas%20no%20Espa%C3%A7o%20Singular."
+              target="_blank"
+              rel="noopener"
+              aria-label="WhatsApp">
+              <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
             </a>
           </div>
         </div>
@@ -1262,12 +1253,9 @@
 
     /* ----------------------------------------------------------
        3. LINKS INTERNOS (âncoras)
-       Para links que NÃO são de agenda, só rola para a seção.
+       Rola para a seção certa ao clicar em links internos.
     ---------------------------------------------------------- */
     document.querySelectorAll('a[href^="#"]').forEach(function(link) {
-      // Pula os botões de agenda (já tratados acima)
-      if (link.classList.contains('js-abrir-agenda')) return;
-
       link.addEventListener('click', function(evento) {
         const idAlvo = link.getAttribute('href').slice(1); // remove o #
         const alvo   = document.getElementById(idAlvo);
@@ -1347,11 +1335,10 @@
           FOTO_HERO_ID  → foto principal (hero)
           FOTO_SOBRE_ID → foto da seção "Sobre mim"
 
-    3. AGENDA (Tua Agenda)
-       O botão "Agendar" abre o Tua Agenda em nova aba.
-       Se precisar trocar a URL no futuro, procure por:
-       href="https://espacosingularpsicologia.tuaagenda.app"
-       (aparece em 3 lugares: nav, hero e seção de agendamento)
+    3. CONTATO (WhatsApp)
+       Se precisar trocar a mensagem ou o número do WhatsApp no futuro, procure por:
+       href="https://wa.me/5562996070796"
+       (aparece no botão flutuante, no hero, na seção de contato e no rodapé)
 
     4. SUBIR PARA O GITHUB
        a) Crie um repositório público no GitHub
